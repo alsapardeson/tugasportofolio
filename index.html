@@ -1,0 +1,585 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alsa Pardeson | Network Engineer</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #08111f;
+            color: #eaf2fb;
+            line-height: 1.6;
+        }
+
+        :root {
+            --primary: #42d6c5;
+            --secondary: #65a9ff;
+            --background: #08111f;
+            --card: #12243a;
+            --text: #eaf2fb;
+            --muted: #9aadc3;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        /* NAVBAR */
+        header {
+            background: rgba(8, 17, 31, 0.95);
+            border-bottom: 1px solid #20334a;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            height: 75px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 600px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+            padding: 80px 0;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero-content h4 {
+            color: var(--primary);
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+        }
+
+        .hero-content h1 {
+            font-size: 65px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero-content h1 span {
+            color: var(--primary);
+        }
+
+        .hero-content p {
+            color: var(--muted);
+            font-size: 17px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: var(--primary);
+            color: #08111f;
+            text-decoration: none;
+            border-radius: 7px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 5px 20px #42d6c544;
+        }
+
+        /* NETWORK VISUAL */
+        .network {
+            width: 320px;
+            height: 320px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 0 40px #42d6c522;
+            flex-shrink: 0;
+        }
+
+        .network-center {
+            width: 100px;
+            height: 100px;
+            border-radius: 20px;
+            background: var(--card);
+            border: 2px solid var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 45px;
+        }
+
+        .node {
+            position: absolute;
+            width: 55px;
+            height: 55px;
+            background: var(--card);
+            border: 2px solid var(--secondary);
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 25px;
+        }
+
+        .node1 { top: 0; left: 50%; transform: translateX(-50%); }
+        .node2 { right: 0; top: 50%; transform: translateY(-50%); }
+        .node3 { bottom: 0; left: 50%; transform: translateX(-50%); }
+        .node4 { left: 0; top: 50%; transform: translateY(-50%); }
+
+        /* SECTION */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-title h2 {
+            font-size: 35px;
+        }
+
+        .section-title span {
+            color: var(--primary);
+        }
+
+        .section-title p {
+            color: var(--muted);
+            margin-top: 10px;
+        }
+
+        /* ABOUT */
+        .about-content {
+            background: var(--card);
+            padding: 35px;
+            border-radius: 15px;
+            border: 1px solid #263b54;
+        }
+
+        .about-content p {
+            color: var(--muted);
+            font-size: 17px;
+        }
+
+        .about-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .info {
+            background: #0b192a;
+            padding: 18px;
+            border-radius: 10px;
+        }
+
+        .info small {
+            color: var(--primary);
+        }
+
+        /* SKILLS */
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .skill-card {
+            background: var(--card);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #263b54;
+            transition: 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-7px);
+            border-color: var(--primary);
+        }
+
+        .skill-card .icon {
+            font-size: 35px;
+            margin-bottom: 15px;
+        }
+
+        .skill-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .skill-card p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* PROJECT */
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .project-card {
+            background: var(--card);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #263b54;
+            transition: 0.3s;
+        }
+
+        .project-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .project-card h3 {
+            margin: 15px 0 10px;
+        }
+
+        .project-card p {
+            color: var(--muted);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 5px 12px;
+            background: #42d6c522;
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        /* CONTACT */
+        .contact {
+            text-align: center;
+            background: var(--card);
+            border: 1px solid #263b54;
+            padding: 50px 25px;
+            border-radius: 15px;
+        }
+
+        .contact p {
+            color: var(--muted);
+            margin: 15px 0 25px;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid #263b54;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 45px;
+            }
+
+            .network {
+                width: 260px;
+                height: 260px;
+                margin-top: 30px;
+            }
+
+            .skills {
+                grid-template-columns: 1fr;
+            }
+
+            .projects {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 10px;
+                font-size: 12px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+        }
+
+        @media(max-width: 420px) {
+            nav {
+                flex-direction: column;
+                height: auto;
+                padding: 15px 0;
+                gap: 10px;
+            }
+
+            .hero-content h1 {
+                font-size: 38px;
+            }
+
+            .about-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <nav class="container">
+            <div class="logo">ALSA<span>.</span></div>
+
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Project</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <main>
+    <section class="container hero" id="home">
+
+        <div class="hero-content">
+            <h4>JUNIOR NETWORK ENGINEER</h4>
+
+            <h1>
+                Alsa<br>
+                <span>Pardeson.</span>
+            </h1>
+
+            <p>
+                Halo! Saya Alsa Pardeson, siswa kelas 10
+                jurusan Teknik Jaringan Komputer dan Telekomunikasi.
+                Saya memiliki ketertarikan dalam dunia networking,
+                konfigurasi jaringan, dan teknologi informasi.
+            </p>
+
+            <a href="#projects" class="btn">
+                Lihat Portofolio →
+            </a>
+        </div>
+
+        <div class="network">
+            <div class="network-center">🌐</div>
+            <div class="node node1">🖥️</div>
+            <div class="node node2">📡</div>
+            <div class="node node3">💻</div>
+            <div class="node node4">🔌</div>
+        </div>
+
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="container">
+
+            <div class="section-title">
+                <h2>About <span>Me</span></h2>
+                <p>Mengenal lebih dekat tentang saya</p>
+            </div>
+
+            <div class="about-content">
+                <p>
+                    Saya adalah seorang pelajar kelas 10 jurusan
+                    Teknik Jaringan Komputer dan Telekomunikasi (TJKT).
+                    Saat ini saya sedang mempelajari dasar-dasar
+                    jaringan komputer, konfigurasi perangkat jaringan,
+                    pengalamatan IP, serta troubleshooting jaringan.
+                    Saya memiliki semangat untuk terus belajar dan
+                    mengembangkan kemampuan menjadi seorang Network Engineer.
+                </p>
+
+                <div class="about-info">
+
+                    <div class="info">
+                        <small>Nama Lengkap</small>
+                        <h3>Alsa Pardeson</h3>
+                    </div>
+
+                    <div class="info">
+                        <small>Kelas</small>
+                        <h3>10</h3>
+                    </div>
+
+                    <div class="info">
+                        <small>Jurusan</small>
+                        <h3>TJKT</h3>
+                    </div>
+
+                    <div class="info">
+                        <small>Bidang</small>
+                        <h3>Networking</h3>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+        <div class="container">
+
+            <div class="section-title">
+                <h2>My <span>Skills</span></h2>
+                <p>Bidang yang sedang saya pelajari</p>
+            </div>
+
+            <div class="skills">
+
+                <div class="skill-card">
+                    <div class="icon">🌐</div>
+                    <h3>Networking</h3>
+                    <p>
+                        Mempelajari konsep dasar jaringan,
+                        LAN, WAN, topologi jaringan,
+                        serta model OSI dan TCP/IP.
+                    </p>
+                </div>
+
+                <div class="skill-card">
+                    <div class="icon">🖧</div>
+                    <h3>Network Devices</h3>
+                    <p>
+                        Mengenal perangkat jaringan seperti
+                        router, switch, access point,
+                        dan kabel UTP.
+                    </p>
+                </div>
+
+                <div class="skill-card">
+                    <div class="icon">⚙️</div>
+                    <h3>Configuration</h3>
+                    <p>
+                        Mempelajari konfigurasi IP address,
+                        subnetting, dan troubleshooting
+                        jaringan dasar.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECT -->
+    <section id="projects">
+        <div class="container">
+
+            <div class="section-title">
+                <h2>My <span>Projects</span></h2>
+                <p>Latihan dan dokumentasi pembelajaran saya</p>
+            </div>
+
+            <div class="projects">
+
+                <div class="project-card">
+                    <span class="tag">Networking</span>
+                    <h3>Simulasi Topologi LAN</h3>
+                    <p>
+                        Latihan membuat rancangan topologi jaringan
+                        lokal dan memahami koneksi antarperangkat.
+                    </p>
+                </div>
+
+                <div class="project-card">
+                    <span class="tag">IP Addressing</span>
+                    <h3>Konfigurasi IP Address</h3>
+                    <p>
+                        Latihan konfigurasi IPv4, subnet mask,
+                        gateway, dan pengujian konektivitas jaringan.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <div class="container">
+
+            <div class="contact">
+                <h2>Let's <span style="color:#42d6c5">Connect!</span></h2>
+
+                <p>
+                    Terus belajar, berkembang, dan membangun
+                    masa depan di dunia teknologi jaringan.
+                </p>
+
+                <!-- Ganti email dengan email milikmu -->
+                <a href="mailto:emailkamu@example.com" class="btn">
+                    Hubungi Saya →
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>
+            © 2026 Alsa Pardeson.
+            Junior Network Engineer Portfolio.
+        </p>
+    </footer>
+
+</body>
+</html>
